@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import AdviceBox from './Components/AdviceBox'
+import './App.css'
+import LoadingBar from 'react-top-loading-bar'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+  //Create a progress bar using state
+  state = { progress:0 }
+
+  //Creating the function to change progress
+  changeProgress = (progress)=>{
+    this.setState({progress})
+  }
+
+  render() {
+    return (
+      <>
+       <LoadingBar
+        color='orange'
+        height={3}
+        progress={this.state.progress}
+        onLoaderFinished={() => this.setState({progress:0})}
+      />
+        {/* randering the advice box  */}
+        <AdviceBox setprogress={this.changeProgress}/>
+      </>
+    )
+  }
 }
 
-export default App;
